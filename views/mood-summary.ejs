@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+<main class="main-content index_container">
+  <h2>Mood History</h2>
+  <div>
+    <div class="moods-list">
+      <% moods.forEach((mood) => {%>
+      <li><%= mood %></li>
+      <% }) %>
+    </div>
+    <h3>Current Streak: <%= streak %></h3>
+    <div class="navigation__container">
+      <a href="/">Home</a>
+    </div>
+  </div>
+</main>

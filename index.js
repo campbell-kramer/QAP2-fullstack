@@ -22,12 +22,21 @@ app.get("/mood", (req, res) => {
   res.render("mood");
 });
 
+app.get("/mood-summary", (req, res) => {
+  const recentMoods = moodHistory.slice(-5);
+  const streak = getStreak(moodHistory);
+  res.render("mood-summary", {
+    moods: recentMoods,
+    streak: streak,
+  });
+});
+
 // Mood Entry Submission (POST)
 app.post("/mood", (req, res) => {
   const mood = req.body.mood;
   console.log(`Current mood: ${mood}`);
-
-  res.redirect("/");
+  moodHistory.push(mood);
+  res.redirect("/mood-summary");
 });
 
 app.listen(PORT, () => {

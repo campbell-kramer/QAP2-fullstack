@@ -1,35 +1,37 @@
-const express = require('express');
-const path = require('path');
-const { getStreak } = require('./utils/utilities');
+const express = require("express");
+const path = require("path");
+const { getStreak } = require("./utils/utilities");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const moodHistory = [];
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 //Some routes required for full functionality are missing here. Only get routes should be required
-app.get('/', (req, res) => {
-  res.render('index');
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
-app.get('/mood', (req, res) => {
-  res.render('mood');
+app.get("/mood", (req, res) => {
+  res.render("mood");
 });
 
 // Mood Entry Submission (POST)
-app.post('/mood', (req, res) => {
+app.post("/mood", (req, res) => {
   const mood = req.body.mood;
   console.log(`Current mood: ${mood}`);
 
-  res.redirect('/');
+  res.redirect("/");
 });
 
 app.listen(PORT, () => {
   console.log(`Mood Tracker running at http://localhost:${PORT}`);
 });
+
+// poo

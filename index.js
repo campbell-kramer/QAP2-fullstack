@@ -33,5 +33,3 @@ app.post("/mood", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Mood Tracker running at http://localhost:${PORT}`);
 });
-
-// poo

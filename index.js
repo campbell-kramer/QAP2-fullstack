@@ -15,7 +15,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //Some routes required for full functionality are missing here. Only get routes should be required
 app.get("/", (req, res) => {
-  res.render("index");
+  let streakText = "";
+  if (moodHistory.length > 0) {
+    const streak = getStreak(moodHistory);
+    streakText = `Current happy streak: ${streak}`;
+  } else {
+    streakText = "No moods have been recorded yet! :(";
+  }
+  res.render("index", { streakText: streakText });
 });
 
 app.get("/mood", (req, res) => {
@@ -24,10 +31,16 @@ app.get("/mood", (req, res) => {
 
 app.get("/mood-summary", (req, res) => {
   const recentMoods = moodHistory.slice(-5);
-  const streak = getStreak(moodHistory);
+  let streakText = "";
+  if (moodHistory.length > 0) {
+    const streak = getStreak(moodHistory);
+    streakText = `Current happy streak: ${streak}`;
+  } else {
+    streakText = "No moods have been recorded yet! :(";
+  }
   res.render("mood-summary", {
     moods: recentMoods,
-    streak: streak,
+    streakText: streakText,
   });
 });
 

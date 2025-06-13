@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { getStreak } = require("./utils/utilities");
+const { getStreak, generateStreakText } = require("./utils/utilities");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,14 +15,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //Some routes required for full functionality are missing here. Only get routes should be required
 app.get("/", (req, res) => {
-  let streakText = "";
-  if (moodHistory.length > 0) {
-    const streak = getStreak(moodHistory);
-    streakText = `Current happy streak: ${streak}`;
-  } else {
-    streakText = "No moods have been recorded yet! :(";
-  }
-  res.render("index", { streakText: streakText });
+  const streakText = generateStreakText(moodHistory);
+  res.render("index", { streakText });
 });
 
 app.get("/mood", (req, res) => {
@@ -31,16 +25,10 @@ app.get("/mood", (req, res) => {
 
 app.get("/mood-summary", (req, res) => {
   const recentMoods = moodHistory.slice(-5);
-  let streakText = "";
-  if (moodHistory.length > 0) {
-    const streak = getStreak(moodHistory);
-    streakText = `Current happy streak: ${streak}`;
-  } else {
-    streakText = "No moods have been recorded yet! :(";
-  }
+  const streakText = generateStreakText(moodHistory);
   res.render("mood-summary", {
     moods: recentMoods,
-    streakText: streakText,
+    streakText,
   });
 });
 

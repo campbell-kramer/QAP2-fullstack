@@ -18,4 +18,12 @@ function getStreak(moodHistory) {
   return streak;
 }
 
-module.exports = { getStreak };
+function generateStreakText(moodHistory) {
+  if (moodHistory.length === 0) {
+    return "No moods have been recorded yet! :(";
+  }
+  const streak = getStreak(moodHistory);
+  return `Current happy streak: ${streak}`;
+}
+
+module.exports = { getStreak, generateStreakText };
